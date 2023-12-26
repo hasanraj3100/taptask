@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TapTask"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -23,11 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".AboutActivity"
-            android:theme="@style/Theme.TapTask"
+        <activity
+            android:name=".AboutActivity"
             android:label="@string/app_name"
-            />
+            android:theme="@style/Theme.TapTask" />
+
+        <activity android:name=".AddTask"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.TapTask"/>
     </application>
 
 </manifest>
