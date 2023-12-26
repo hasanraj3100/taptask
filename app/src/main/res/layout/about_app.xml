@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:text="TapTask"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="
+Meet our versatile To-Do app! Effortlessly add and complete tasks with a tap, enjoying seamless synchronization across devices. Easily mark tasks as complete, and watch as your data is automatically stored in the cloud. "
+        android:layout_marginTop="20dp"
+        ></TextView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="Stay organized, efficient, and connected to your progress anytime, anywhere. Task management made simple and accessible!"
+        android:layout_marginTop="20dp"
+        />
+
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="If you find our app useful: "
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:layout_marginTop="80dp"
+        android:gravity="center"/>
+
+
+    <Button
+        android:id="@+id/btn_coffee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buy us a cup of coffee"
+        android:background="@color/reddish"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+
+        />
+
+
+
+
+
+
+
+</LinearLayout>
