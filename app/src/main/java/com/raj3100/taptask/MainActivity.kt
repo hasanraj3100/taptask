@@ -1,5 +1,6 @@
 package com.raj3100.taptask
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.ComponentActivity
@@ -14,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
+import android.view.MenuItem
 
 class MainActivity : ComponentActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -59,6 +61,18 @@ class MainActivity : ComponentActivity() {
         menuInflater.inflate(R.menu.app_menu, menu)
         return super.onCreateOptionsMenu(menu)
 
+    }
+
+    override fun onMenuItemSelected(featureId: Int, item: MenuItem): Boolean {
+
+        val id:Int = item.itemId
+
+        if(id == R.id.about) {
+            val intent = Intent(this, AboutActivity::class.java)
+            startActivity(intent)
+        }
+
+        return super.onMenuItemSelected(featureId, item)
     }
 }
 
