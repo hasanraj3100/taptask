@@ -33,6 +33,8 @@ class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapt
         else if(currentItem.priority == 0) holder.card.setBackgroundColor(Color.parseColor("#297f87"))
         else if(currentItem.priority == 2) holder.card.setBackgroundColor(Color.parseColor("#df2e2e"))
 
+
+
     }
 
     class ViewHolderClass(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -40,4 +42,6 @@ class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapt
         val priority: TextView = itemView.findViewById(R.id.priority)
         val card: LinearLayout = itemView.findViewById(R.id.card)
     }
+
+
 }

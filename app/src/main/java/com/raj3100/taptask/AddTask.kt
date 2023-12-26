@@ -1,4 +1,4 @@
-package com.raj3100.taptask.ui.theme
+package com.raj3100.taptask
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
