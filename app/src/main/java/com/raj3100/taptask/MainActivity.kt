@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
 
 class MainActivity : ComponentActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -25,6 +26,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val buttonClick = findViewById<Button>(R.id.addTaskButton)
+        buttonClick.setOnClickListener {
+            val intent = Intent(this, AddTask::class.java)
+            startActivity(intent)
+        }
 
         titleList = arrayOf(
             "Task 1",
