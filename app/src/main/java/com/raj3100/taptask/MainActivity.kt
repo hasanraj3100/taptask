@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         val buttonClick = findViewById<Button>(R.id.addTaskButton)
         buttonClick.setOnClickListener {
             val intent = Intent(this, AddTask::class.java)
@@ -57,7 +58,7 @@ class MainActivity : ComponentActivity() {
         for(i in titleList.indices) {
             val dataClass = Task(1, titleList[i], priorityList[i], false)
             dataList.add(dataClass)
-            Log.i("raj", "adding $i")
+
 
         }
 
@@ -81,5 +82,8 @@ class MainActivity : ComponentActivity() {
 
         return super.onMenuItemSelected(featureId, item)
     }
+
+
+
 }
 

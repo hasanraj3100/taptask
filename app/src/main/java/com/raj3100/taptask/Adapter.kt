@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import android.graphics.Color
+import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.widget.LinearLayout
+import androidx.compose.foundation.layout.Row
 import androidx.recyclerview.widget.RecyclerView
 
 class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapter.ViewHolderClass>() {
@@ -24,16 +26,18 @@ class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapt
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
         val currentItem = dataList[position]
         holder.title.text = currentItem.title
-        holder.priority.text = currentItem.priority.toString()
+        holder.priority.text = getPriorityString(currentItem.priority)
 
-        if(currentItem.priority == 1) {
-            holder.card.setBackgroundColor(Color.parseColor("#f6d167"))
 
+
+
+
+        toggleStrikeThrough(holder.title, holder.priority, currentItem.isFinished, holder, currentItem.priority)
+
+        holder.card.setOnClickListener {
+            toggleStrikeThrough(holder.title, holder.priority, currentItem.isFinished, holder, currentItem.priority)
+            currentItem.isFinished = !currentItem.isFinished
         }
-        else if(currentItem.priority == 0) holder.card.setBackgroundColor(Color.parseColor("#297f87"))
-        else if(currentItem.priority == 2) holder.card.setBackgroundColor(Color.parseColor("#df2e2e"))
-
-
 
     }
 
@@ -44,4 +48,43 @@ class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapt
     }
 
 
+    fun toggleStrikeThrough(title:TextView, priority: TextView, isFinished:Boolean, holder:ViewHolderClass, prioInt: Int) {
+        if(isFinished) {
+            title.paintFlags = title.paintFlags or STRIKE_THRU_TEXT_FLAG
+            priority.paintFlags = priority.paintFlags or STRIKE_THRU_TEXT_FLAG
+            holder.card.setBackgroundColor(Color.rgb(45,45,45))
+          //  holder.card.setBackgroundColor(Color.rgb(45,45,45))
+        } else {
+            title.paintFlags = title.paintFlags and STRIKE_THRU_TEXT_FLAG.inv()
+            priority.paintFlags = priority.paintFlags and STRIKE_THRU_TEXT_FLAG.inv()
+
+            holder.card.setBackgroundColor(Color.parseColor(getColorFromPriority(prioInt)))
+            if(prioInt == 1) {
+                holder.title.setTextColor(Color.rgb(0,0,0,))
+                holder.priority.setTextColor(Color.rgb(0,0,0,))
+            }
+        }
+    }
+
+    fun getColorFromPriority(priority:Int) : String {
+
+        when(priority) {
+            0 -> return "#297f87"
+            1 -> return "#f6d167"
+            2 -> return "#df2e2e"
+        }
+
+        return "#00000"
+
+    }
+
+    fun getPriorityString(priority: Int): String {
+        when(priority) {
+            0 -> return "Priority : Low"
+            1 -> return "Priority : Medium"
+            2 -> return "Priority : High"
+        }
+
+        return ""
+    }
 }

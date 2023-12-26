@@ -2,4 +2,7 @@
 <resources>
 
     <style name="Theme.TapTask" parent="android:ThemeOverlay.Material.Dark.ActionBar" />
+
+    <style name="Theme.TapTask.SplashScreen" parent="android:Theme.Holo.NoActionBar">
+    </style>
 </resources>
