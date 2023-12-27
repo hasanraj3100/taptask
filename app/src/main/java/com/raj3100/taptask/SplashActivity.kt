@@ -10,8 +10,15 @@ class SplashActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
 
+        val editor = getSharedPreferences("user_data", MODE_PRIVATE)
+        val userName = editor.getString("userID", null);
+
+
+
         Handler().postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
+            var intent = Intent(this, MainActivity::class.java)
+            if(userName == null)
+             intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)

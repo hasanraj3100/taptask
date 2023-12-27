@@ -16,6 +16,9 @@ class LoginActivity : ComponentActivity() {
 
         loginButton.setOnClickListener {
             if(phone.text.toString().equals("1234")) {
+                val editor = getSharedPreferences("user_data", MODE_PRIVATE).edit()
+                editor.putString("userID", "1")
+                editor.apply()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
