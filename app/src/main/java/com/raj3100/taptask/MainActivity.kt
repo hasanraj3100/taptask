@@ -1,5 +1,6 @@
 package com.raj3100.taptask
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -17,12 +18,16 @@ import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.Toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : ComponentActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dataList: ArrayList<Task>
-    lateinit var titleList:Array<String>
-    lateinit var priorityList: Array<Int>
+   var titleList:ArrayList<String> = ArrayList<String>()
+    var priorityList: ArrayList<Int> = ArrayList<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,29 +39,30 @@ class MainActivity : ComponentActivity() {
             startActivity(intent)
         }
 
-        titleList = arrayOf(
-            "Task 1",
-            "Task 3",
-            "Task 4",
-            "Do Homework"
-        )
+//        titleList = arrayOf(
+//            "Task 1",
+//            "Task 3",
+//            "Task 4",
+//            "Do Homework"
+//        )
 
-        priorityList = arrayOf(
-            2, 0, 1, 2
-        )
+//        priorityList = arrayOf(
+//            2, 0, 1, 2
+//        )
 
         recyclerView = findViewById(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
         dataList = arrayListOf<Task>()
-        getData()
+
+        getDataFromServer()
 
     }
 
     private fun getData() {
         for(i in titleList.indices) {
-            val dataClass = Task(1, titleList[i], priorityList[i], false)
+            val dataClass = Task(1, titleList[i], priorityList[i], 0)
             dataList.add(dataClass)
 
 
@@ -81,6 +87,34 @@ class MainActivity : ComponentActivity() {
         }
 
         return super.onMenuItemSelected(featureId, item)
+    }
+
+
+    private fun getDataFromServer() {
+        val progresDialog = ProgressDialog(this)
+        progresDialog.setMessage("Please wait while data is being fetched")
+        progresDialog.show()
+
+        RetrofitInstance.apiInterface.getData().enqueue(object : Callback<List<Task>?> {
+            override fun onResponse(call: Call<List<Task>?>, response: Response<List<Task>?>) {
+                Log.i("thik", response.body()?.size.toString())
+                val responseData: List<Task>? = response.body()
+                val titles:Array<String> ;
+                if (responseData != null) {
+                    for (item in responseData) {
+                       titleList.add(item.title.toString())
+                        priorityList.add(item.priority.toInt())
+                    }
+                }
+                progresDialog.dismiss()
+                getData()
+            }
+
+            override fun onFailure(call: Call<List<Task>?>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "${t.localizedMessage}", Toast.LENGTH_LONG).show()
+                progresDialog.dismiss()
+            }
+        })
     }
 
 

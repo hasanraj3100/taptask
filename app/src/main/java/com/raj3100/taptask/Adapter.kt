@@ -36,7 +36,7 @@ class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapt
 
         holder.card.setOnClickListener {
             toggleStrikeThrough(holder.title, holder.priority, currentItem.isFinished, holder, currentItem.priority)
-            currentItem.isFinished = !currentItem.isFinished
+            currentItem.isFinished = if (currentItem.isFinished == 1)  0 else 1
         }
 
     }
@@ -48,8 +48,8 @@ class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapt
     }
 
 
-    fun toggleStrikeThrough(title:TextView, priority: TextView, isFinished:Boolean, holder:ViewHolderClass, prioInt: Int) {
-        if(isFinished) {
+    fun toggleStrikeThrough(title:TextView, priority: TextView, isFinished:Int, holder:ViewHolderClass, prioInt: Int) {
+        if(isFinished == 1) {
             title.paintFlags = title.paintFlags or STRIKE_THRU_TEXT_FLAG
             priority.paintFlags = priority.paintFlags or STRIKE_THRU_TEXT_FLAG
             holder.card.setBackgroundColor(Color.rgb(45,45,45))
