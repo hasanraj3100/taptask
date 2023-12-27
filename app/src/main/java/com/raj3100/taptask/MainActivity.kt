@@ -28,6 +28,9 @@ class MainActivity : ComponentActivity() {
     private lateinit var dataList: ArrayList<Task>
    var titleList:ArrayList<String> = ArrayList<String>()
     var priorityList: ArrayList<Int> = ArrayList<Int>()
+    var finishedStatus: ArrayList<Int> = ArrayList<Int>()
+    var identityList: ArrayList<Int> = ArrayList<Int>()
+    lateinit var adpt:Adapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -62,13 +65,16 @@ class MainActivity : ComponentActivity() {
 
     private fun getData() {
         for(i in titleList.indices) {
-            val dataClass = Task(1, titleList[i], priorityList[i], 0)
+            val dataClass = Task(identityList[i], titleList[i], priorityList[i], finishedStatus[i])
             dataList.add(dataClass)
 
 
         }
 
-        recyclerView.adapter = Adapter(dataList)
+
+
+        adpt = Adapter(dataList)
+        recyclerView.adapter = adpt
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -86,6 +92,14 @@ class MainActivity : ComponentActivity() {
             startActivity(intent)
         }
 
+        if(id == R.id.clear) {
+           UpdateRepository.deleteTheTask(5)
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+            finish()
+        }
+
         return super.onMenuItemSelected(featureId, item)
     }
 
@@ -97,13 +111,15 @@ class MainActivity : ComponentActivity() {
 
         RetrofitInstance.apiInterface.getData().enqueue(object : Callback<List<Task>?> {
             override fun onResponse(call: Call<List<Task>?>, response: Response<List<Task>?>) {
-                Log.i("thik", response.body()?.size.toString())
+
                 val responseData: List<Task>? = response.body()
                 val titles:Array<String> ;
                 if (responseData != null) {
                     for (item in responseData) {
                        titleList.add(item.title.toString())
                         priorityList.add(item.priority.toInt())
+                        finishedStatus.add(item.isFinished.toInt())
+                        identityList.add(item.id.toInt())
                     }
                 }
                 progresDialog.dismiss()
@@ -116,6 +132,8 @@ class MainActivity : ComponentActivity() {
             }
         })
     }
+
+
 
 
 

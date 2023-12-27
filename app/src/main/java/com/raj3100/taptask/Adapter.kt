@@ -9,6 +9,9 @@ import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.widget.LinearLayout
 import androidx.compose.foundation.layout.Row
 import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapter.ViewHolderClass>() {
 
@@ -35,8 +38,10 @@ class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapt
         toggleStrikeThrough(holder.title, holder.priority, currentItem.isFinished, holder, currentItem.priority)
 
         holder.card.setOnClickListener {
-            toggleStrikeThrough(holder.title, holder.priority, currentItem.isFinished, holder, currentItem.priority)
+
             currentItem.isFinished = if (currentItem.isFinished == 1)  0 else 1
+            toggleStrikeThrough(holder.title, holder.priority, currentItem.isFinished, holder, currentItem.priority)
+            UpdateRepository.updateTheTask(currentItem.id, currentItem.isFinished)
         }
 
     }
@@ -86,5 +91,12 @@ class Adapter(private val dataList: ArrayList<Task>): RecyclerView.Adapter<Adapt
         }
 
         return ""
+    }
+
+    fun clearList() {
+        dataList.removeAll {
+            it.id > 0
+        }
+        notifyDataSetChanged()
     }
 }
