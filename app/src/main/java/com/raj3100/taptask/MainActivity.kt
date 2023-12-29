@@ -40,6 +40,7 @@ class MainActivity : ComponentActivity() {
         buttonClick.setOnClickListener {
             val intent = Intent(this, AddTask::class.java)
             startActivity(intent)
+            finish()
         }
 
 //        titleList = arrayOf(

@@ -10,12 +10,12 @@ import retrofit2.http.POST
 
 interface ApiInterface {
 
-    @GET("/api/apifile.php?userID=1")
+    @GET("/~gadhacom/api/getTasks.php?userID=1")
     fun getData(): Call<List<Task>>
 
 
     @FormUrlEncoded
-    @POST("/api/savePost.php")
+    @POST("/~gadhacom/api/saveTask.php")
     fun saveTask(
         @Field("title") title:String,
         @Field("priority") priority:Int,
@@ -24,7 +24,7 @@ interface ApiInterface {
 
 
     @FormUrlEncoded
-    @POST("/api/updateTask.php")
+    @POST("/~gadhacom/api/updateTask.php")
     fun updatetask (
         @Field("id") id:Int,
         @Field("isFinished") isFinished:Int
@@ -32,7 +32,7 @@ interface ApiInterface {
 
 
     @FormUrlEncoded
-    @POST("/api/deleteTask.php")
+    @POST("/~gadhacom/api/deleteTask.php")
     fun deleteTask(
         @Field("id") id:Int
     ): Call<Task>
